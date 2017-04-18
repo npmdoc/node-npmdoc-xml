@@ -1,4 +1,4 @@
-<div class="apidocDiv">
+<html><head></head><body><div class="apidocDiv">
 <style>
 /*csslint
 */
@@ -47,17 +47,10 @@
 }
 </style>
 <h1>api documentation for
-    <a
-
-        href="http://github.com/dylang/node-xml"
-
-    >xml (v1.0.1)</a>
+    <a href="http://github.com/dylang/node-xml">xml (v1.0.1)</a>
 </h1>
 <h4>Fast and simple xml generator. Supports attributes, CDATA, etc. Includes tests and examples.</h4>
-<div class="apidocSectionDiv"><a
-    href="#apidoc.tableOfContents"
-    id="apidoc.tableOfContents"
-><h1>table of contents</h1></a><ol>
+<div class="apidocSectionDiv"><a href="#apidoc.tableOfContents" id="apidoc.tableOfContents"><h1>table of contents</h1></a><ol>
 
     <li class="apidocModuleLi"><a href="#apidoc.module.xml">module xml</a><ol>
 
@@ -162,16 +155,16 @@
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function xml(input, options) {
 
-    if (typeof options !== &#x27;object&#x27;) {
+    if (typeof options !== 'object') {
         options = {
             indent: options
         };
     }
 
     var stream      = options.stream ? new Stream() : null,
-        output      = &#x22;&#x22;,
+        output      = "",
         interrupted = false,
-        indent      = !options.indent ? &#x27;&#x27;
+        indent      = !options.indent ? ''
                         : options.indent === true ? DEFAULT_INDENT
                             : options.indent,
         instant     = true;
@@ -189,14 +182,14 @@
         if (out !== undefined) {
             output += out;
         }
-        if (interrupt &#x26;&#x26; !interrupted) {
+        if (interrupt &amp;&amp; !interrupted) {
             stream = stream || new Stream();
             interrupted = true;
         }
-        if (interrupt &#x26;&#x26; interrupted) {
+        if (interrupt &amp;&amp; interrupted) {
             var data = output;
-            delay(function () { stream.emit(&#x27;data&#x27;, data) });
-            output = &#x22;&#x22;;
+            delay(function () { stream.emit('data', data) });
+            output = "";
         }
     }
 
@@ -208,24 +201,24 @@
         if (stream) {
             var data = output;
             delay(function () {
-              stream.emit(&#x27;data&#x27;, data);
-              stream.emit(&#x27;end&#x27;);
+              stream.emit('data', data);
+              stream.emit('end');
               stream.readable = false;
-              stream.emit(&#x27;close&#x27;);
+              stream.emit('close');
             });
         }
     }
 
     function addXmlDeclaration(declaration) {
-        var encoding = declaration.encoding || &#x27;UTF-8&#x27;,
-            attr =  { version: &#x27;1.0&#x27;, encoding: encoding };
+        var encoding = declaration.encoding || 'UTF-8',
+            attr =  { version: '1.0', encoding: encoding };
 
         if (declaration.standalone) {
             attr.standalone = declaration.standalone
         }
 
-        add({&#x27;?xml&#x27;: { _attr: attr } });
-        output = output.replace(&#x27;/&#x3e;&#x27;, &#x27;?&#x3e;&#x27;);
+        add({'?xml': { _attr: attr } });
+        output = output.replace('/&gt;', '?&gt;');
     }
 
     // disable delay delayed
@@ -235,7 +228,7 @@
         addXmlDeclaration(options.declaration);
     }
 
-    if (input &#x26;&#x26; input.forEach) {
+    if (input &amp;&amp; input.forEach) {
         input.forEach(function (value, i) {
             var last;
             if (i + 1 === input.length)
@@ -272,7 +265,7 @@
 
     self.push = function (input) {
         if (!this.append) {
-            throw new Error(&#x22;not assigned to a parent!&#x22;);
+            throw new Error("not assigned to a parent!");
         }
         var that = this;
         var indent = this._elem.indent;
@@ -312,7 +305,7 @@
 
     self.push = function (input) {
         if (!this.append) {
-            throw new Error(&#x22;not assigned to a parent!&#x22;);
+            throw new Error("not assigned to a parent!");
         }
         var that = this;
         var indent = this._elem.indent;
@@ -333,19 +326,19 @@
     return self;
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
- For example you can use `&#x27;\t&#x27;` for tab character, or `&#x27;  &#x27;` for two-space tabs.
+ For example you can use `'\t'` for tab character, or `'  '` for two-space tabs.
 
 `stream` Return the result as a `stream`.
 
 **Stream Example**
 
 ```js
-var elem = xml.<span class="apidocCodeKeywordSpan">element</span>({ _attr: { decade: &#x27;80s&#x27;, locale: &#x27;US&#x27;} });
+var elem = xml.<span class="apidocCodeKeywordSpan">element</span>({ _attr: { decade: '80s', locale: 'US'} });
 var stream = xml({ toys: elem }, { stream: true });
-stream.on(&#x27;data&#x27;, function (chunk) {console.log(&#x22;data:&#x22;, chunk)});
-elem.push({ toy: &#x27;Transformers&#x27; });
-elem.push({ toy: &#x27;GI Joe&#x27; });
-elem.push({ toy: [{name:&#x27;He-man&#x27;}] });
+stream.on('data', function (chunk) {console.log("data:", chunk)});
+elem.push({ toy: 'Transformers' });
+elem.push({ toy: 'GI Joe' });
+elem.push({ toy: [{name:'He-man'}] });
 elem.close();
 ...</pre></li>
     </ul>
@@ -360,8 +353,8 @@ elem.close();
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function escapeForXML(string) {
-    return string &#x26;&#x26; string.replace
-        ? string.replace(/([&#x26;&#x22;&#x3c;&#x3e;&#x27;])/g, function(str, item) {
+    return string &amp;&amp; string.replace
+        ? string.replace(/([&amp;"&lt;&gt;'])/g, function(str, item) {
             return XML_CHARACTER_MAP[item];
           })
         : string;
@@ -406,7 +399,7 @@ elem.close();
 
     self.push = function (input) {
         if (!this.append) {
-            throw new Error(&#x22;not assigned to a parent!&#x22;);
+            throw new Error("not assigned to a parent!");
         }
         var that = this;
         var indent = this._elem.indent;
@@ -444,8 +437,8 @@ elem.close();
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function escapeForXML(string) {
-    return string &#x26;&#x26; string.replace
-        ? string.replace(/([&#x26;&#x22;&#x3c;&#x3e;&#x27;])/g, function(str, item) {
+    return string &amp;&amp; string.replace
+        ? string.replace(/([&amp;"&lt;&gt;'])/g, function(str, item) {
             return XML_CHARACTER_MAP[item];
           })
         : string;
@@ -480,3 +473,4 @@ elem.close();
     ]
 </div>
 </div>
+</body></html>
