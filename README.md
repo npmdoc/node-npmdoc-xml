@@ -1,9 +1,14 @@
-# api documentation for  [xml (v1.0.1)](http://github.com/dylang/node-xml)  [![npm package](https://img.shields.io/npm/v/npmdoc-xml.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-xml) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-xml.svg)](https://travis-ci.org/npmdoc/node-npmdoc-xml)
+# npmdoc-xml
+
+#### api documentation for  [xml (v1.0.1)](http://github.com/dylang/node-xml)  [![npm package](https://img.shields.io/npm/v/npmdoc-xml.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-xml) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-xml.svg)](https://travis-ci.org/npmdoc/node-npmdoc-xml)
+
 #### Fast and simple xml generator. Supports attributes, CDATA, etc. Includes tests and examples.
 
-[![NPM](https://nodei.co/npm/xml.png?downloads=true)](https://www.npmjs.com/package/xml)
+[![NPM](https://nodei.co/npm/xml.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/xml)
 
-[![apidoc](https://npmdoc.github.io/node-npmdoc-xml/build/screenCapture.buildNpmdoc.browser._2Fhome_2Ftravis_2Fbuild_2Fnpmdoc_2Fnode-npmdoc-xml_2Ftmp_2Fbuild_2Fapidoc.html.png)](https://npmdoc.github.io/node-npmdoc-xml/build/apidoc.html)
+- [https://npmdoc.github.io/node-npmdoc-xml/build/apidoc.html](https://npmdoc.github.io/node-npmdoc-xml/build/apidoc.html)
+
+[![apidoc](https://npmdoc.github.io/node-npmdoc-xml/build/screenCapture.buildCi.browser.%252Ftmp%252Fbuild%252Fapidoc.html.png)](https://npmdoc.github.io/node-npmdoc-xml/build/apidoc.html)
 
 ![npmPackageListing](https://npmdoc.github.io/node-npmdoc-xml/build/screenCapture.npmPackageListing.svg)
 
@@ -73,17 +78,14 @@
     "main": "lib/xml.js",
     "maintainers": [
         {
-            "name": "dylang",
-            "email": "dylang@gmail.com"
+            "name": "dylang"
         },
         {
-            "name": "erisds",
-            "email": "erisds@gmail.com"
+            "name": "erisds"
         }
     ],
     "name": "xml",
     "optionalDependencies": {},
-    "readme": "ERROR: No README data found!",
     "repository": {
         "type": "git",
         "url": "git+ssh://git@github.com/dylang/node-xml.git"
@@ -93,107 +95,6 @@
     },
     "version": "1.0.1"
 }
-```
-
-
-
-# <a name="apidoc.tableOfContents"></a>[table of contents](#apidoc.tableOfContents)
-
-#### [module xml](#apidoc.module.xml)
-1.  [function <span class="apidocSignatureSpan">xml.</span>Element ()](#apidoc.element.xml.Element)
-1.  [function <span class="apidocSignatureSpan">xml.</span>element ()](#apidoc.element.xml.element)
-
-
-
-# <a name="apidoc.module.xml"></a>[module xml](#apidoc.module.xml)
-
-#### <a name="apidoc.element.xml.Element"></a>[function <span class="apidocSignatureSpan">xml.</span>Element ()](#apidoc.element.xml.Element)
-- description and source-code
-```javascript
-function element() {
-    var input = Array.prototype.slice.call(arguments),
-        self = {
-            _elem:  resolve(input)
-        };
-
-    self.push = function (input) {
-        if (!this.append) {
-            throw new Error("not assigned to a parent!");
-        }
-        var that = this;
-        var indent = this._elem.indent;
-        format(this.append, resolve(
-            input, indent, this._elem.icount + (indent ? 1 : 0)),
-            function () { that.append(true) });
-    };
-
-    self.close = function (input) {
-        if (input !== undefined) {
-            this.push(input);
-        }
-        if (this.end) {
-            this.end();
-        }
-    };
-
-    return self;
-}
-```
-- example usage
-```shell
-n/a
-```
-
-#### <a name="apidoc.element.xml.element"></a>[function <span class="apidocSignatureSpan">xml.</span>element ()](#apidoc.element.xml.element)
-- description and source-code
-```javascript
-function element() {
-    var input = Array.prototype.slice.call(arguments),
-        self = {
-            _elem:  resolve(input)
-        };
-
-    self.push = function (input) {
-        if (!this.append) {
-            throw new Error("not assigned to a parent!");
-        }
-        var that = this;
-        var indent = this._elem.indent;
-        format(this.append, resolve(
-            input, indent, this._elem.icount + (indent ? 1 : 0)),
-            function () { that.append(true) });
-    };
-
-    self.close = function (input) {
-        if (input !== undefined) {
-            this.push(input);
-        }
-        if (this.end) {
-            this.end();
-        }
-    };
-
-    return self;
-}
-```
-- example usage
-```shell
-...
- For example you can use ''\t'' for tab character, or ''  '' for two-space tabs.
-
-'stream' Return the result as a 'stream'.
-
-**Stream Example**
-
-'''js
-var elem = xml.element({ _attr: { decade: '80s', locale: 'US'} });
-var stream = xml({ toys: elem }, { stream: true });
-stream.on('data', function (chunk) {console.log("data:", chunk)});
-elem.push({ toy: 'Transformers' });
-elem.push({ toy: 'GI Joe' });
-elem.push({ toy: [{name:'He-man'}] });
-elem.close();
-...
 ```
 
 
