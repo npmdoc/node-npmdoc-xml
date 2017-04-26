@@ -1,6 +1,6 @@
 # npmdoc-xml
 
-#### api documentation for  [xml (v1.0.1)](http://github.com/dylang/node-xml)  [![npm package](https://img.shields.io/npm/v/npmdoc-xml.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-xml) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-xml.svg)](https://travis-ci.org/npmdoc/node-npmdoc-xml)
+#### basic api documentation for  [xml (v1.0.1)](http://github.com/dylang/node-xml)  [![npm package](https://img.shields.io/npm/v/npmdoc-xml.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-xml) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-xml.svg)](https://travis-ci.org/npmdoc/node-npmdoc-xml)
 
 #### Fast and simple xml generator. Supports attributes, CDATA, etc. Includes tests and examples.
 
@@ -93,7 +93,8 @@
     "scripts": {
         "test": "ava"
     },
-    "version": "1.0.1"
+    "version": "1.0.1",
+    "bin": {}
 }
 ```
 
