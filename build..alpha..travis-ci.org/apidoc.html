@@ -88,63 +88,6 @@
 
         </li>
 
-        <li>
-
-            <a class="apidocElementLiA" href="#apidoc.element.xml.escapeForXML">
-            function <span class="apidocSignatureSpan">xml.</span>escapeForXML
-            <span class="apidocSignatureSpan">(string)</span>
-            </a>
-
-        </li>
-
-        <li>
-
-            <a class="apidocElementLiA" href="#apidoc.element.xml.toString">
-            function <span class="apidocSignatureSpan">xml.</span>toString
-            <span class="apidocSignatureSpan">()</span>
-            </a>
-
-        </li>
-
-    </ol></li>
-
-    <li class="apidocModuleLi"><a href="#apidoc.module.xml.Element">module xml.Element</a><ol>
-
-        <li>
-
-            <a class="apidocElementLiA" href="#apidoc.element.xml.Element.Element">
-            function <span class="apidocSignatureSpan">xml.</span>Element
-            <span class="apidocSignatureSpan">()</span>
-            </a>
-
-        </li>
-
-    </ol></li>
-
-    <li class="apidocModuleLi"><a href="#apidoc.module.xml.escapeForXML">module xml.escapeForXML</a><ol>
-
-        <li>
-
-            <a class="apidocElementLiA" href="#apidoc.element.xml.escapeForXML.escapeForXML">
-            function <span class="apidocSignatureSpan">xml.</span>escapeForXML
-            <span class="apidocSignatureSpan">(string)</span>
-            </a>
-
-        </li>
-
-    </ol></li>
-
-    <li class="apidocModuleLi"><a href="#apidoc.module.xml.toString">module xml.toString</a><ol>
-
-        <li>
-
-            <a class="apidocElementLiA" href="#apidoc.element.xml.toString.toString">
-            function <span class="apidocSignatureSpan">xml.</span>toString
-            <span class="apidocSignatureSpan">()</span>
-            </a>
-
-        </li>
-
     </ol></li>
 
 </ol></div>
@@ -292,7 +235,23 @@
 
     return self;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+        &#x3c;name&#x3e;He-man&#x3c;/name&#x3e;
+        &#x3c;description&#x3e;&#x3c;![CDATA[&#x3c;strong&#x3e;Master of the Universe!&#x3c;/strong&#x3e;]]&#x3e;&#x3c;/description
+&#x3e;
+    &#x3c;/toy&#x3e;
+&#x3c;/toys&#x3e;
+*/
+
+console.log(&#x27;\n===== Example 6 ====&#x27;);
+var elem = xml.<span class="apidocCodeKeywordSpan">Element</span>({ _attr: { decade: &#x27;80s&#x27;, locale: &#x27;US&#x27;} });
+var xmlStream = xml({ toys: elem }, { indent: true } );
+xmlStream.on(&#x27;data&#x27;, function (chunk) {console.log(&#x22;data:&#x22;, chunk)});
+elem.push({ toy: &#x27;Transformers&#x27; });
+elem.push({ toy: &#x27;GI Joe&#x27; });
+elem.push({ toy: [{name:&#x27;He-man&#x27;}] });
+elem.close();
+...</pre></li>
     </ul>
 
 
@@ -348,127 +307,6 @@ elem.push({ toy: &#x27;GI Joe&#x27; });
 elem.push({ toy: [{name:&#x27;He-man&#x27;}] });
 elem.close();
 ...</pre></li>
-    </ul>
-
-
-
-    <h2>
-        <a href="#apidoc.element.xml.escapeForXML" id="apidoc.element.xml.escapeForXML">
-        function <span class="apidocSignatureSpan">xml.</span>escapeForXML
-        <span class="apidocSignatureSpan">(string)</span>
-        </a>
-    </h2>
-    <ul>
-    <li>description and source-code<pre class="apidocCodePre">function escapeForXML(string) {
-    return string &#x26;&#x26; string.replace
-        ? string.replace(/([&#x26;&#x22;&#x3c;&#x3e;&#x27;])/g, function(str, item) {
-            return XML_CHARACTER_MAP[item];
-          })
-        : string;
-}</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
-    </ul>
-
-
-
-    <h2>
-        <a href="#apidoc.element.xml.toString" id="apidoc.element.xml.toString">
-        function <span class="apidocSignatureSpan">xml.</span>toString
-        <span class="apidocSignatureSpan">()</span>
-        </a>
-    </h2>
-    <ul>
-    <li>description and source-code<pre class="apidocCodePre">toString = function () {
-    return text;
-}</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
-    </ul>
-
-
-</div>
-
-<div class="apidocSectionDiv">
-<h1><a href="#apidoc.module.xml.Element" id="apidoc.module.xml.Element">module xml.Element</a></h1>
-
-
-    <h2>
-        <a href="#apidoc.element.xml.Element.Element" id="apidoc.element.xml.Element.Element">
-        function <span class="apidocSignatureSpan">xml.</span>Element
-        <span class="apidocSignatureSpan">()</span>
-        </a>
-    </h2>
-    <ul>
-    <li>description and source-code<pre class="apidocCodePre">function element() {
-    var input = Array.prototype.slice.call(arguments),
-        self = {
-            _elem:  resolve(input)
-        };
-
-    self.push = function (input) {
-        if (!this.append) {
-            throw new Error(&#x22;not assigned to a parent!&#x22;);
-        }
-        var that = this;
-        var indent = this._elem.indent;
-        format(this.append, resolve(
-            input, indent, this._elem.icount + (indent ? 1 : 0)),
-            function () { that.append(true) });
-    };
-
-    self.close = function (input) {
-        if (input !== undefined) {
-            this.push(input);
-        }
-        if (this.end) {
-            this.end();
-        }
-    };
-
-    return self;
-}</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
-    </ul>
-
-
-</div>
-
-<div class="apidocSectionDiv">
-<h1><a href="#apidoc.module.xml.escapeForXML" id="apidoc.module.xml.escapeForXML">module xml.escapeForXML</a></h1>
-
-
-    <h2>
-        <a href="#apidoc.element.xml.escapeForXML.escapeForXML" id="apidoc.element.xml.escapeForXML.escapeForXML">
-        function <span class="apidocSignatureSpan">xml.</span>escapeForXML
-        <span class="apidocSignatureSpan">(string)</span>
-        </a>
-    </h2>
-    <ul>
-    <li>description and source-code<pre class="apidocCodePre">function escapeForXML(string) {
-    return string &#x26;&#x26; string.replace
-        ? string.replace(/([&#x26;&#x22;&#x3c;&#x3e;&#x27;])/g, function(str, item) {
-            return XML_CHARACTER_MAP[item];
-          })
-        : string;
-}</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
-    </ul>
-
-
-</div>
-
-<div class="apidocSectionDiv">
-<h1><a href="#apidoc.module.xml.toString" id="apidoc.module.xml.toString">module xml.toString</a></h1>
-
-
-    <h2>
-        <a href="#apidoc.element.xml.toString.toString" id="apidoc.element.xml.toString.toString">
-        function <span class="apidocSignatureSpan">xml.</span>toString
-        <span class="apidocSignatureSpan">()</span>
-        </a>
-    </h2>
-    <ul>
-    <li>description and source-code<pre class="apidocCodePre">function toString() { [native code] }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
 
 
